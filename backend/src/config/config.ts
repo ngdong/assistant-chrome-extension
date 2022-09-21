@@ -1,3 +1,4 @@
+import "https://deno.land/x/dotenv/load.ts";
 const env = Deno.env.toObject();
 const PORT = env.PORT || 8080;
 const SECRET_KEY = env.SECRET_KEY;
