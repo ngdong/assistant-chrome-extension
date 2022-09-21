@@ -14,4 +14,4 @@ export { MongoClient, Bson } from 'https://deno.land/x/mongo@v0.21.0/mod.ts';
 
 export { assert } from 'https://deno.land/std/testing/asserts.ts';
 
-export { parse } from 'https://deno.land/std@0.83.0/flags/mod.ts';
+export { parse } from 'https://deno.land/std/flags/mod.ts';
