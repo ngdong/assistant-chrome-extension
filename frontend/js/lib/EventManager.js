@@ -1,4 +1,5 @@
 class EventManager {
+  events;
   constructor() {
     this.events = [];
   }
@@ -26,6 +27,14 @@ class EventManager {
     const handlerIndex = handlers.indexOf(handler);
     handlers.splice(handlerIndex);
   }
+
+  getInstance() {
+    if (!this.events) {
+      return new EventManager();
+    }
+    return this;
+  }
 }
 
-export default EventManager;
+const eventManager = new EventManager()
+export default eventManager;

@@ -14,7 +14,7 @@ class Login {
                     <span>Username</span>
                 </div>
                 <div class="form-input">
-                    <input type="email" name="username" id="username" required placeholder=" ">
+                    <input type="text" name="username" id="username" required placeholder=" ">
                 </div>
             </div>
             <div class="form-control">

@@ -9,3 +9,15 @@ export const render = (template, selector) => {
   if (!node) return;
   node.innerHTML = template;
 }
+
+
+export const formatDate = (value) => {
+  return '';
+}
+ 
+export const isNil = (value) => {
+  if (typeof value === 'string') {
+    return !value.length;
+  }
+  return value === null || value === undefined;
+}

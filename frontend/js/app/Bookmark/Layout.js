@@ -1,5 +1,6 @@
 import Header from "./Header.js";
 import BookmarkPage from "./Bookmark/BookmarkPage.js";
+import IndexedDB from "../../lib/IndexedDB.js";
 
 class Layout {
   bookmarkId;
@@ -16,6 +17,8 @@ class Layout {
   };
 
   async render(selector = "app") {
+    await IndexedDB.connectDB();
+    console.log(IndexedDB.db);
     await new Header(this.bookmarkId).render(selector);
     const markup = this.createMarkup();
     const parent = document.getElementById(selector);

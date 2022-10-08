@@ -1,18 +1,21 @@
-import bookmarkService from "../../services/BookmarkService.js";
+import BookmarkService from "../../../services/BookmarkService.js";
 import BookmarkList from "./BookmarkList.js";
-import { BOOKMARK_TYPE } from "../../constant.js";
+import { BOOKMARK_TYPE } from "../../../constant.js";
 
 class BookmarkPage {
   bookmarkId;
   bookmarks = null;
   constructor(_bookmarkId) {
     this.bookmarkId = _bookmarkId;
+    this.bookmarkService = new BookmarkService();
   }
 
   async createMarkup(bookmarks) {
     if (bookmarks && bookmarks.length === 0) {
       try {
-        this.bookmarks = await bookmarkService.getByParentId(this.bookmarkId);
+        this.bookmarks = await this.bookmarkService.getByParentId(
+          this.bookmarkId
+        );
         return `${BookmarkList(this.bookmarks)}`;
       } catch (error) {
         console.log(error);
@@ -39,7 +42,7 @@ class BookmarkPage {
       item.addEventListener("click", async (e) => {
         e.preventDefault();
         const _bookmarkId = e.currentTarget.getAttribute("data-id");
-        const isDelete = await bookmarkService.deleteBookmark(_bookmarkId);
+        const isDelete = await this.bookmarkService.deleteBookmark(_bookmarkId);
         if (isDelete) {
           location.reload();
         }
@@ -92,7 +95,7 @@ class BookmarkPage {
         const toType = +this.getAttribute("data-type");
         const parentId = this.getAttribute("data-id");
         if (toType === BOOKMARK_TYPE.Folder) {
-          await bookmarkService.updateItemParent(itemId, parentId);
+          await global.bookmarkService.updateItemParent(itemId, parentId);
           global.render("app-container");
           return;
         }
@@ -108,7 +111,7 @@ class BookmarkPage {
         }
         const bookmarks = global.bookmarks
           .reduce(function (arr, item) {
-            if (itemId === item._id) {
+            if (itemId === item.id) {
               item.order = to;
             } else if (start <= +item.order && +item.order <= end) {
               item.order = item.order + temp;
@@ -117,7 +120,7 @@ class BookmarkPage {
             return arr;
           }, [])
           .sort((a, b) => a.order - b.order);
-        await bookmarkService.sortable(itemId, to);
+        await global.bookmarkService.sortable(itemId, to);
         global.render("app-container", bookmarks);
       }
       return false;

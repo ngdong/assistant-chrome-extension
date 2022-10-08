@@ -1,24 +1,20 @@
-import { CACHE_STORAGE_KEYS } from '../constant.js';
+import StorageService from "./StorageService.js";
 
 class CacheService {
-  cacheStorage;
-  constructor() {
-    this.cacheStorage = window.localStorage;
-  }
+  constructor() {}
 
-  get recentKey() {
-    try{
-      const key = this.cacheStorage.getItem(CACHE_STORAGE_KEYS.RECENT_ID);
-      return key || 'root';
-    } catch {
-      return 'root';
+  async recentKey(key) {
+    try {
+      const value = await StorageService.getItem(key);
+      return value;
+    } catch (e) {
+      console.log(e);
     }
   }
 
-  setRecentKey(key) {
-    this.cacheStorage.setItem(CACHE_STORAGE_KEYS.RECENT_ID, key);
+  async setRecentKey(key, value) {
+    await StorageService.setItem(key, value);
   }
-
 }
 const cacheService = new CacheService();
 export default cacheService;

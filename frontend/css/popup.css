@@ -1,0 +1,323 @@
+.wrapper {
+  width: 500px;
+}
+
+.header {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.header a {
+  cursor: pointer;
+  padding: 5px;
+  display: inline-flex;
+}
+
+.header a:hover {
+  background: #c3c3c3c3;
+  border-radius: 50%;
+  padding: 5px 4px 5px 6px;
+}
+
+.header a.btn-sync-data:hover {
+  padding: 5px;
+}
+
+.header a img {
+  width: 20px;
+  height: 20px;
+}
+
+.header p {
+  font-size: 20px;
+  color: #1a73e8;
+  font-weight: 700;
+}
+
+.header .header-action-left {
+  flex: 1;
+  text-align: left;
+}
+
+.header .header-action-left a {
+  padding: 5px 6px 5px 4px;
+}
+
+.header .header-title {
+  flex: 1;
+  text-align: center;
+}
+
+.header .header-action-right {
+  flex: 1;
+  text-align: right;
+}
+
+.header .header-action-right a {
+  margin-right: 10px;
+}
+
+.header .header-action-right a:last-child {
+  margin-right: 0;
+}
+
+.app-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.app-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.app-container::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+.app-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #f90;
+  background-image: -webkit-linear-gradient(45deg,
+      rgba(255, 255, 255, 0.2) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.2) 75%,
+      transparent 75%,
+      transparent);
+}
+
+.bookmark-list .item {
+  display: flex;
+  padding: 8px 3px 5px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bookmark-list .item:hover {
+  background-color: #e0e0e0;
+}
+
+.bookmark-list .item:hover a {
+  color: #1a73e8 !important;
+  font-weight: bold;
+}
+
+.bookmark-list .drag-item {
+  padding: 2px 0px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.bookmark-list .item:last-child {
+  border: none;
+}
+
+.bookmark-list .item .icon {
+  display: flex;
+}
+
+[draggable] {
+  user-select: none;
+}
+
+.bookmark-list .item.over {
+  border: 1px dotted #666;
+  background-color: #c3c3c3c3;
+}
+
+.bookmark-list .item .icon img {
+  width: 16px;
+  height: 16px;
+}
+
+.bookmark-list .item .title {
+  flex: 1;
+  padding-left: 10px;
+  font-weight: 400;
+  margin: -8px 0;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.bookmark-list .item .title a {
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  color: black;
+  display: block;
+  padding: 10px 0;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.bookmark-list .item .delete {
+  display: none;
+  line-height: 1;
+  margin: -10px 0;
+}
+
+.bookmark-list .item .delete a {
+  padding: 10px 8px 6px;
+}
+
+.bookmark-list .item:hover .delete {
+  display: block;
+}
+
+.form-group {
+  text-align: center;
+  max-width: 300px;
+  margin: 20px auto;
+}
+
+.form-title {
+  font-size: 30px;
+  color: #1a73e8;
+  margin-bottom: 20px;
+}
+
+.form-control {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+
+.form-label {
+  flex: 1;
+  font-size: 15px;
+}
+
+.form-input {
+  flex: 2;
+}
+
+.form-input input {
+  border: 1px solid #dadce0;
+  padding: 5px;
+  border-radius: 5px;
+  transition: border-color 0.5s ease-out;
+}
+
+.form-input input:focus {
+  border: 1px solid #1a73e8;
+  outline-width: 0;
+}
+
+.form-input input:invalid:not(:focus):not(:placeholder-shown) {
+  border: 1px solid red;
+}
+
+/* Show green borders when valid */
+.form-input input:valid {
+  border-color: hsl(120, 76%, 50%);
+}
+
+.form-action {
+  margin-top: 15px;
+}
+
+.form-action button {
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #1a73e8;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 7px 15px;
+  outline: 0;
+  font-weight: bold;
+}
+
+.form-action button:hover {
+  border-color: #1a73e8;
+}
+
+.open-modal {
+  position: relative;
+  height: 450px;
+}
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.2);
+  /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 25px 20px;
+  border: 1px solid #888;
+  width: 65%;
+  margin-top: 100px;
+  position: relative;
+}
+
+.modal-content .form-action {
+  text-align: center;
+}
+
+.modal-content .close-modal {
+  padding: 5px 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  font-weight: bold;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+
+/* Spinner */
+.loader {
+  width: 67px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 25px);
+  bottom: 0;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.loader img {
+  width: 70px;
+  height: 70px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

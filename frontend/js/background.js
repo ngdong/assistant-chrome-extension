@@ -1,5 +1,5 @@
 import IndexedDB from "./lib/IndexedDB.js";
-import bookmarkService from "./services/BookmarkService.js";
+import BookmarkService from "./services/BookmarkService.js";
 import { ACTIONS } from "./constant.js";
 
 // create alarm for watchdog and fresh on installed/updated, and start fetch data
@@ -22,9 +22,10 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
   const { action, data } = request;
   setIsLoading(true);
+  const bookmarkService = new BookmarkService();
   if (action == ACTIONS.BOOKMARK_LINK) {
     console.log("bookmark Link...", request);
     bookmarkService
@@ -63,11 +64,11 @@ async function startRequest() {
   console.log("start HTTP Request...");
   setIsLoading(true);
   await IndexedDB.connectDB();
+  const bookmarkService = new BookmarkService();
   await bookmarkService.syncData();
   setIsLoading(false);
 }
 
 function setIsLoading(isLoading) {
-  localStorage.setItem("isLoading", isLoading);
   chrome.runtime.sendMessage({ action: ACTIONS.LOADING, data: isLoading });
 }

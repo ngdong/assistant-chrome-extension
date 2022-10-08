@@ -10,6 +10,6 @@ const recentId = cacheService.recentKey;
 renderApp(recentId);
 
 window.addEventListener("hashchange", function (event) {
-  const bookmarkId = location.hash.includes("#/") ? location.hash.replace("#/", "") : "root";
+  const bookmarkId = location.hash.includes("#/") ? location.hash.replace("#/", "") : 0;
   renderApp(bookmarkId);
 });

@@ -1,10 +1,11 @@
-import { BOOKMARK_TYPE, FOLDER_ICON, ACTIONS } from "./../constant.js";
-import bookmarkService from "../services/BookmarkService.js";
+import { BOOKMARK_TYPE, FOLDER_ICON, ACTIONS } from "../../constant.js";
+import BookmarkService from "../../services/BookmarkService.js";
 class Header {
   bookmarkId;
 
   constructor(_bookmarkId) {
     this.bookmarkId = _bookmarkId;
+    this.bookmarkService = new BookmarkService();
   }
 
   createMarkup(isHomePage, isExist, title) {
@@ -38,10 +39,11 @@ class Header {
   }
 
   async render(selector = "app") {
-    const isHomePage = this.bookmarkId !== "root";
+    const isHomePage = +this.bookmarkId !== 0;
     const isExist = await this.checkHasBookmark();
-    const title = await bookmarkService.getBookmarkTitleById(this.bookmarkId);
-    console.log(title);
+    const title = await this.bookmarkService.getBookmarkTitleById(
+      this.bookmarkId
+    );
     const markup = this.createMarkup(isHomePage, isExist, title);
     const parent = document.getElementById(selector);
     parent.innerHTML = markup;
@@ -53,7 +55,7 @@ class Header {
       chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         const currentTab = tabs.find(Boolean);
         const { url } = currentTab;
-        const isExist = bookmarkService.checkHasBookmark(url);
+        const isExist = this.bookmarkService.checkHasBookmark(url);
         resolve(isExist);
       });
     });
@@ -102,9 +104,8 @@ class Header {
         icon: base64Icon,
         title: title,
         link: url,
-        parent_id: global.bookmarkId,
+        parentId: global.bookmarkId,
         type: BOOKMARK_TYPE.Web,
-        order: 1,
       };
       try {
         chrome.runtime.sendMessage(
@@ -161,9 +162,8 @@ class Header {
         icon: FOLDER_ICON,
         title: title,
         link: "",
-        parent_id: global.bookmarkId,
+        parentId: global.bookmarkId,
         type: BOOKMARK_TYPE.Folder,
-        order: 1,
       };
       try {
         chrome.runtime.sendMessage(

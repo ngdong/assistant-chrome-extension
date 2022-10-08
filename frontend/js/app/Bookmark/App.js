@@ -1,8 +1,7 @@
-import authService from "../services/AuthService.js";
-import Login from "../components/Auth/Login.js";
+import authService from "../../services/AuthService.js";
+import Login from "../../components/Auth/Login.js";
 import Layout from "./Layout.js";
-import IndexedDB from "../lib/IndexedDB.js";
-import { ACTIONS } from "./../constant.js";
+import { ACTIONS } from "../../constant.js";
 
 class App {
   bookmarkId;
@@ -12,8 +11,7 @@ class App {
     this.handleLoadingIndicator();
   }
 
-  async render(selector = "app") {
-    await IndexedDB.connectDB();
+  async render() {
     if (authService.isAuth) {
       const layout = new Layout(this.bookmarkId);
       layout.render("app");
@@ -26,7 +24,7 @@ class App {
     const global = this;
     chrome.runtime.onMessage.addListener(function (
       request,
-      sender,
+      _sender,
       sendResponse
     ) {
       const { action, data } = request;
