@@ -1,21 +1,19 @@
-# Bookmark API
-
-This project is a simple REST API, built with [**Deno**](https://deno.land/).
-
-It is using Deno's [**oak**](https://deno.land/x/oak) and [**mongo**](https://deno.land/x/mongo) modules.
+# Nodejs + Typescript + Typeorm + Postgresql
 
 ## Requirements
-- **Deno**: https://deno.land/#installation
-- **MongoDB**: https://www.mongodb.com/download-center/community
-- **Denon**: https://deno.land/x/denon
+
+- **Nodejs**
+- **Postgresql**
+- **Pnpm**
 
 ## Getting Started
 
 **Clone the repo:**
 
 ```bash
-git clone git@github.com:ngdong/bookmark-chrome-extension.git
-cd bookmark-chrome-extension/backend
+git clone https://github.com/ngdong/nodejs-typescript-starter
+cd nodejs-typescript-starter
+pnpm i
 ```
 
 **Set the environment variables:**
@@ -27,22 +25,15 @@ cp .env.example .env
 **Run the app:**
 
 ```bash
-  denon start
+  pnpm dev
 ```
 
+**Available scripts:**
 
-**Run the test:**
-
-```bash
-  denon test
-```
-
-**Deploy heroku:**
-
-```bash
-  npm install -g heroku
-  heroku login
-  heroku git:remote -a [project_name]
-  heroku buildpacks:set https://github.com/chibat/heroku-buildpack-deno.git
-  git push heroku master
-```
+- `dev` - start dev server,
+- `prebuild` - lint source files and tests before building,
+- `build` - transpile TypeScript to ES6,
+- `lint` - lint source files,
+- `format` - reformat files,
+- `test` - run tests,
+- `generate` - generates and/or modifies files based on a schematic.
