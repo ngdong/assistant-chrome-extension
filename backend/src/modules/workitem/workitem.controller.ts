@@ -54,7 +54,8 @@ class WorkitemController implements IController {
     next: NextFunction,
   ): Promise<Response | void> => {
     try {
-      const item = await this.workitemService.getOne(+req.params.id);
+      const objId = Number(req.params.id);
+      const item = await this.workitemService.getOne(objId);
       ResponseFactory.success(res, item);
     } catch (e) {
       next(e);

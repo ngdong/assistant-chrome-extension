@@ -20,6 +20,11 @@ class BookmarkController implements IController {
   private initialiseRoutes(): void {
     this.router.get(`${this.path}`, authenticated, this.getAll);
     this.router.get(
+      `${this.path}/:id`,
+      [celebrate({ params: validate.entityId }), authenticated],
+      this.getOne,
+    );
+    this.router.get(
       `${this.path}/children/:parentId`,
       authenticated,
       this.getChildren,
@@ -36,7 +41,7 @@ class BookmarkController implements IController {
     );
     this.router.delete(
       `${this.path}/:bookmarkId`,
-      [celebrate({ params: validate.deleteParams }), authenticated],
+      [celebrate({ params: validate.entityId }), authenticated],
       this.delete,
     );
     this.router.post(
@@ -44,7 +49,7 @@ class BookmarkController implements IController {
       [celebrate({ query: validate.sort }), authenticated],
       this.sort,
     );
-    this.router.get(`${this.path}/export`, [authenticated], this.exportData);
+    this.router.post(`${this.path}/export`, [authenticated], this.exportData);
     this.router.post(
       `${this.path}/import`,
       [authenticated, upload.single('file')],
@@ -59,6 +64,20 @@ class BookmarkController implements IController {
   ): Promise<Response | void> => {
     try {
       const result = await this.bookmarkService.getAll();
+      ResponseFactory.success(res, result);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  private getOne = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> => {
+    try {
+      const objId = Number(req.params.id);
+      const result = await this.bookmarkService.getOne(objId);
       ResponseFactory.success(res, result);
     } catch (e) {
       next(e);

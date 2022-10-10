@@ -47,8 +47,8 @@ const update = Joi.object<IBookmark>({
   parentId: Joi.number().label('Parent Id'),
 });
 
-const deleteParams = Joi.object<{ bookmarkId: number }>({
-  bookmarkId: Joi.number().label('Bookmark Id').required(),
+const entityId = Joi.object<{ id: number }>({
+  id: Joi.number().label('Bookmark Id').required(),
 });
 
 export default {
@@ -56,5 +56,5 @@ export default {
   create,
   sort,
   update,
-  deleteParams,
+  entityId,
 };

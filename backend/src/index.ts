@@ -5,7 +5,7 @@ import validateEnv from '@/utils/validateEnv';
 import AuthController from '@/modules/auth/auth.controller';
 import UserController from '@/modules/user/user.controller';
 import WorkitemController from '@/modules/workitem/workitem.controller';
-import BookmarkController from './modules/bookmark/bookmark.controller';
+import BookmarkController from '@/modules/bookmark/bookmark.controller';
 
 validateEnv();
 

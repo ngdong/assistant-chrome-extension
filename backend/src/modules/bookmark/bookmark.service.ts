@@ -25,6 +25,18 @@ class BookmarkService {
     return result;
   }
 
+  async getOne(objId: number) {
+    const item = await this.bookmarkRepository.findOne({
+      where: {
+        id: objId,
+      },
+    });
+    if (!item) {
+      throw new Error('Not found');
+    }
+    return item;
+  }
+
   async getChildren(parentId: number | undefined): Promise<BookmarkEntity[]> {
     const result = await this.bookmarkRepository.find({
       where: {
@@ -101,7 +113,9 @@ class BookmarkService {
       } else if (start <= +item.order && +item.order <= end) {
         order = item.order + temp;
       }
-      await this.bookmarkRepository.updateOrder(item.id, order);
+      await this.bookmarkRepository.update(item.id, {
+        order,
+      });
     });
     bookmark.order = Number(to);
     return bookmark;
