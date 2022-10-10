@@ -2,7 +2,7 @@ import { celebrate } from 'celebrate';
 import { NextFunction, Request, Response, Router } from 'express';
 import IController from '@/interfaces/controller.interface';
 import __module__Service from '@/modules/__module__(lowerCase)/__module__(lowerCase).service';
-import ApplicationResponse from '@/utils/response';
+import ResponseFactory from '@/utils/response';
 
 class __module__Controller implements IController {
   public path = '/__module__(lowerCase)s';
@@ -15,8 +15,6 @@ class __module__Controller implements IController {
 
   private initialiseRoutes(): void {
   }
-
- 
 }
 
 export default __module__Controller;
