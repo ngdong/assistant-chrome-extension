@@ -1,6 +1,9 @@
-name: Nodejs CI
+name: Nodejs CI/CD
 
-on: [push, pull_request]
+on:
+  push:
+    branches: ["main"]
+    paths: ["backend/**"]
 
 defaults:
   run:
@@ -8,32 +11,39 @@ defaults:
 
 jobs:
   build_n_test:
-    name: 'Build and Test'
+    name: "Build and Test"
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ 'ubuntu-latest' ]
-        node-version: [ '16.x' ]
+        os: ["ubuntu-latest"]
+        node-version: ["16.x"]
     steps:
-      - name: 'Checkout repository'
+      - name: "Checkout repository"
         uses: actions/checkout@v3
 
-      - name: 'Use Node.js v${{ matrix.node-version }}'
+      - name: "Use Node.js v${{ matrix.node-version }}"
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: 'Install dependencies'
+      - name: "Install dependencies"
         run: npm install
 
-      - name: 'Run lint source files'
+      - name: "Run lint source files"
         run: npm run lint
 
-      - name: 'Run reformat files'
+      - name: "Run reformat files"
         run: npm run format
 
-      - name: 'Run build'
+      - name: "Run build"
         run: npm run build
 
-      - name: 'Run test'
+      - name: "Run test"
         run: npm run test
+
+      # Trigger Render deploy webhook
+      - name: "Deploy on push"
+        uses: "fjogeleit/http-request-action@v1"
+        with:
+          url: ${{ secrets.WEBHOOK_URL }}
+          method: "POST"
