@@ -10,6 +10,7 @@ import {
   errorMiddleware,
   notFoundHandle,
 } from '@/middlewares/error.middleware';
+import rateLimiter from '@/middlewares/rateLimiter.middleware';
 
 class App {
   public express: Application;
@@ -31,6 +32,7 @@ class App {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(compression());
+    this.express.use(rateLimiter);
   }
 
   private initialiseControllers(controllers: IController[]): void {
