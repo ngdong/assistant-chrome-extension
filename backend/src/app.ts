@@ -32,7 +32,6 @@ class App {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(compression());
-    this.express.use(rateLimiter);
   }
 
   private initialiseControllers(controllers: IController[]): void {
@@ -44,6 +43,10 @@ class App {
       };
       res.status(200).send(data);
     });
+
+    // Use the limit rule as an application middleware
+    this.express.use(rateLimiter);
+
     controllers.forEach((controller: IController) => {
       this.express.use('/api/v1', controller.router);
     });

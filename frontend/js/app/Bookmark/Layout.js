@@ -18,7 +18,6 @@ class Layout {
 
   async render(selector = "app") {
     await IndexedDB.connectDB();
-    console.log(IndexedDB.db);
     await new Header(this.bookmarkId).render(selector);
     const markup = this.createMarkup();
     const parent = document.getElementById(selector);
